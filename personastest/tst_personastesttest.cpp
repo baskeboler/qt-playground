@@ -36,11 +36,11 @@ void PersonastestTest::initTestCase()
         p->setNombre(tr("Victor Gil").append(QString().setNum(i)));
         p->setDireccion(tr("8 de Octubre 2323"));
         p->setTelefono(tr("095253555"));
+        p->setEmail(tr("basket@gmail.com"));
         controller->add(p);
     }
 
     controller->save();
-    //QVERIFY(r->nombre()==p.nombre());
 }
 
 void PersonastestTest::cleanupTestCase()

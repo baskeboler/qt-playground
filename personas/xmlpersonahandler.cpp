@@ -33,8 +33,9 @@ bool XmlPersonaHandler::startElement(const QString &namespaceURI, const QString 
         QString nombre = atts.value(atts.index("nombre"));
         QString direccion = atts.value(atts.index("direccion"));
         QString telefono = atts.value(atts.index("telefono"));
+        QString email = atts.value(atts.index("email"));
         long id = atts.value(atts.index("id")).toLong();
-        p = new Persona(id, nombre, direccion, telefono);
+        p = new Persona(id, nombre, direccion, telefono, email);
         //qDebug() << p->toString() << endl;
 
     }

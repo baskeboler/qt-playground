@@ -116,6 +116,7 @@ void PersonaController::savePersona(QXmlStreamWriter& w, Persona *p) {
     w.writeAttribute(tr("nombre"), p->nombre());
     w.writeAttribute(tr("telefono"), p->telefono());
     w.writeAttribute(tr("direccion"), p->direccion());
+    w.writeAttribute(tr("email"), p->email());
     w.writeEndElement();
 }
 

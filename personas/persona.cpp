@@ -8,18 +8,20 @@ Persona::Persona(const Persona &p):
     m_id(p.id()),
     m_nombre(p.nombre()),
     m_direccion(p.direccion()),
-    m_telefono(p.telefono())
+    m_telefono(p.telefono()),
+    m_email(p.email())
 {
 
 }
 
-Persona::Persona(long id, QString &nombre, QString &direccion, QString &telefono)
+Persona::Persona(long id, QString &nombre, QString &direccion, QString &telefono, QString &email)
     :
       QObject(),
       m_id(id),
       m_nombre(nombre),
       m_direccion(direccion),
-      m_telefono(telefono)
+      m_telefono(telefono),
+      m_email(email)
 {
 
 }
@@ -55,15 +57,22 @@ QString Persona::nombre() const
 
 QString Persona::toString() const
 {
-    return QString("Persona(") % QString().setNum(id())
+    return QString("Persona(") % QString::number(id())
             % ", " % nombre()
             % ", " % direccion()
-            % ", " % telefono() % ")";
+            % ", " % telefono()
+            % ", " % email()
+            % ")";
 }
 
 long Persona::getNextId()
 {
     return g_nextId++;
+}
+
+QString Persona::email() const
+{
+    return m_email;
 }
 
 void Persona::setNombre(QString nombre)
@@ -96,4 +105,13 @@ void Persona::setId(long id)
 
     m_id = id;
     emit idChanged(id);
+}
+
+void Persona::setEmail(QString email)
+{
+    if (m_email == email)
+        return;
+
+    m_email = email;
+    emit emailChanged(email);
 }

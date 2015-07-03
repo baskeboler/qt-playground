@@ -1,6 +1,5 @@
 .tmp/
 Makefile
 personas/libpersonas.*
-
 persona-admin/persona-admin
 personastest/tst_personastesttest
