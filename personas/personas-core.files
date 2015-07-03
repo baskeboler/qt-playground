@@ -1,0 +1,8 @@
+persona.cpp
+persona.h
+personacontroller.cpp
+personacontroller.h
+personas.pro
+personas_global.h
+xmlpersonahandler.cpp
+xmlpersonahandler.h

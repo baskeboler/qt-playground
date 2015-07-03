@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fileopen.svg</file>
+        <file>filesave.svg</file>
+    </qresource>
+</RCC>
