@@ -40,7 +40,7 @@ void PersonastestTest::initTestCase()
         controller->add(p);
     }
 
-    controller->save();
+    controller->save("personas.xml");
 }
 
 void PersonastestTest::cleanupTestCase()
