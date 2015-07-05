@@ -34,6 +34,7 @@ void CrearPersonaDialog::accept()
     p->setNombre(ui->nombreEdit->text());
     p->setDireccion(ui->direccionEdit->text());
     p->setTelefono(ui->telefonoEdit->text());
+    p->setEmail(ui->emailEdit->text());
     PersonaController::getInstance()->add(p);
     emit personaCreated(p);
     qDebug() << p->toString() << " creado!" << endl;

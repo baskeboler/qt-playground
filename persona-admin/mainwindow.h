@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "persona.h"
 #include "crearpersonadialog.h"
+#include "editpersonadialog.h"
 namespace Ui {
 class MainWindow;
 }
@@ -25,6 +26,7 @@ private:
     Ui::MainWindow *ui;
     Persona *selectedPersona;
     CrearPersonaDialog * crearDialog;
+    EditPersonaDialog * editarDialog;
     long cdadPersonas;
 private slots:
     void selectionChanged();
@@ -35,12 +37,15 @@ private slots:
     void cargar();
     void borrarPersonaDeTable(long id);
     void eliminarSeleccionado();
+    void editarSeleccionado();
+    void actualizarSeleccionado();
 protected:
     virtual void resizeEvent(QResizeEvent *);
 
     // QWidget interface
 public:
     virtual QSize sizeHint() const;
+    void updateRow( int i, Persona *p);
 };
 
 #endif // MAINWINDOW_H

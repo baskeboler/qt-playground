@@ -46,9 +46,9 @@ void PersonaController::add(Persona *p)
     emit personaAdded(p);
 }
 
-void PersonaController::save()
+void PersonaController::save(const QString &filePath)
 {
-    QFile f("base.xml");
+    QFile f(filePath);
     f.open(QFile::WriteOnly);
     QXmlStreamWriter w(&f);
     w.setAutoFormatting(true);

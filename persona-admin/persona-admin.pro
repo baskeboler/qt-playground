@@ -15,13 +15,16 @@ QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    crearpersonadialog.cpp
+    crearpersonadialog.cpp \
+    editpersonadialog.cpp
 
 HEADERS  += mainwindow.h \
-    crearpersonadialog.h
+    crearpersonadialog.h \
+    editpersonadialog.h
 
 FORMS    += mainwindow.ui \
-    crearpersonadialog.ui
+    crearpersonadialog.ui \
+    editpersonadialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-personas-Desktop-Debug/release/ -lpersonas
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-personas-Desktop-Debug/debug/ -lpersonas

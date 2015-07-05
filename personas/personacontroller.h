@@ -16,7 +16,7 @@ public:
     Persona *find(long id);
     bool exists(long id);
     void add( Persona * p);
-    void save();
+    void save(const QString& filePath);
     void load(const QString &filePath);
     void remove(long id);
     void removeAll();

@@ -16,19 +16,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //ui->mainToolBar->addAction()
-    //PersonaController * controller = PersonaController::getInstance();
+    PersonaController * controller = PersonaController::getInstance();
 
+    crearDialog = new CrearPersonaDialog(this);
+    editarDialog = new EditPersonaDialog(this);
+    crearDialog->setWindowTitle("Crear Persona");
     setupSignalsAndSlots();
-    //auto f = [] (Persona*) -> bool {return true;}; // all
-    //QList<Persona *> all = controller->filter(f);
-//    int cantidadFilas = all.size();
+    auto f = [] (Persona*) -> bool {return true;}; // all
+    QList<Persona *> all = controller->filter(f);
+    int cantidadFilas = all.size();
 
     QTableWidget *table = ui->tableWidget;
-//    table->setRowCount(cantidadFilas);
-    table->setColumnCount(4);
+    table->setRowCount(cantidadFilas);
+    table->setColumnCount(5);
 
     QStringList header;
-    header << "Id" << "Nombre" << "Direccion" << "Telefono";
+    header << "Id" << "Nombre" << "Direccion" << "Telefono" << "Email";
     table->setHorizontalHeaderLabels(header);
     table->adjustSize();
     initPersonas();
@@ -46,15 +49,13 @@ MainWindow::MainWindow(QWidget *parent) :
 //        item = new QTableWidgetItem(p->telefono());
 //        table->setItem(i, j++, item);
 //    }
-    crearDialog = new CrearPersonaDialog(this);
 //    connect(crearDialog, SIGNAL(personaCreated(Persona*)), this, SLOT(agregarPersonaATable(Persona*)));
-    crearDialog->setWindowTitle("Crear Persona");
 
 }
 
 void initPersonas() {
     PersonaController * controller = PersonaController::getInstance();
-    controller->load("/home/victor/base.xml");
+    //controller->load("/home/victor/base.xml");
 }
 
 MainWindow::~MainWindow()
@@ -86,9 +87,11 @@ void MainWindow::setupSignalsAndSlots()
     connect(ui->guardarButton, SIGNAL(clicked(bool)), this, SLOT(guardar()));
     connect(ui->crearButton, SIGNAL(clicked()), this, SLOT(on_crearButton_clicked()));
     connect(ui->eliminarButton, SIGNAL(clicked(bool)), this, SLOT(eliminarSeleccionado()));
+    connect(ui->editarButton, SIGNAL(clicked(bool)), this, SLOT(editarSeleccionado()));
     connect(ui->actionAbrir, SIGNAL(triggered(bool)), this, SLOT(cargar()));
     connect(PersonaController::getInstance(), SIGNAL(personaAdded(Persona*)), this, SLOT(agregarPersonaATable(Persona*)));
     connect(PersonaController::getInstance(), SIGNAL(personaDeleted(long)), this, SLOT(borrarPersonaDeTable(long)));
+    connect(this->editarDialog, SIGNAL(accepted()), this, SLOT(actualizarSeleccionado()));
 }
 
 void MainWindow::selectionChanged()
@@ -138,17 +141,24 @@ void MainWindow::on_crearButton_clicked()
 
 void MainWindow::agregarPersonaATable(Persona *p)
 {
-    ui->tableWidget->insertRow(0);
+    QTableWidget *table = ui->tableWidget;
+
+    table->insertRow(0);
     QTableWidgetItem *item = new QTableWidgetItem(QString().setNum(p->id()));
-    ui->tableWidget->setItem(0, 0, item);
+    table->setItem(0, 0, item);
 
     item = new QTableWidgetItem(p->nombre());
-    ui->tableWidget->setItem(0, 1, item);
+    table->setItem(0, 1, item);
 
     item = new QTableWidgetItem((p->direccion()));
-    ui->tableWidget->setItem(0, 2, item);
+    table->setItem(0, 2, item);
     item = new QTableWidgetItem(p->telefono());
-    ui->tableWidget->setItem(0, 3, item);
+    table->setItem(0, 3, item);
+
+    item = new QTableWidgetItem(p->email());
+    table->setItem(0, 4, item);
+
+
     ui->lcdNumber->display((int)++cdadPersonas);
 }
 
@@ -156,7 +166,8 @@ void MainWindow::agregarPersonaATable(Persona *p)
 
 void MainWindow::guardar()
 {
-    PersonaController::getInstance()->save();
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Guardar como ..."));
+    PersonaController::getInstance()->save(filePath);
 }
 
 void MainWindow::cargar()
@@ -184,5 +195,34 @@ void MainWindow::eliminarSeleccionado()
         PersonaController::getInstance()->remove(selectedPersona->id());
         selectedPersona = nullptr;
         selectionChanged();
+    }
+}
+
+void MainWindow::editarSeleccionado()
+{
+    if (selectedPersona != nullptr) {
+        editarDialog->setPersona(selectedPersona);
+        editarDialog->setModal(true);
+        editarDialog->show();
+    }
+}
+
+void MainWindow::updateRow(int i, Persona *p)
+{
+    QTableWidget *t = ui->tableWidget;
+    t->item(i, 1)->setText(p->nombre());
+    t->item(i, 2)->setText(p->direccion());
+    t->item(i, 3)->setText(p->telefono());
+    t->item(i, 4)->setText(p->email());
+}
+
+void MainWindow::actualizarSeleccionado()
+{
+    Persona *p = selectedPersona;
+    QTableWidget * t = ui->tableWidget;
+    for (int i = 0; i < t->rowCount(); i++) {
+        if (t->item(i, 0)->text().toLong() == p->id()) {
+            updateRow( i, p);
+        }
     }
 }
