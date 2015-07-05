@@ -3,3 +3,13 @@ Makefile
 personas/libpersonas.*
 persona-admin/persona-admin
 personastest/tst_personastesttest
+persona-admin/crearpersonadialog.o
+personas/moc_personacontroller.o
+persona-admin/*.o
+persona-admin/moc_*.cpp
+persona-admin/qrc_resources.cpp
+persona-admin/ui_*.h
+personas/moc_*.*
+personas/*.o
+personastest/tst_personastesttest.moc
+personastest/tst_personastesttest.o

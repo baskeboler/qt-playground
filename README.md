@@ -14,6 +14,11 @@ Test suite for *personas* project.
 ### personas-admin ###
 Qt GUI app that links to *personas* shared library. The app loads and saves all data to an xml file, creates, edits and deletes people from the dataset.
 
+## build instructions ##
+`$ qmake-qt5`
+`$ make`
+`$ make install`
 
 
 more info soon ... 
+	
