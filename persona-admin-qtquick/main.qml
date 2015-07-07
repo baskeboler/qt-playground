@@ -11,6 +11,8 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
+    property var selected: -1
+
     FileDialog {
         id: fileDialog
         onAccepted: {
@@ -105,9 +107,15 @@ ApplicationWindow {
             logicObj.printSomething()
             ui.state = "CrearPersona"
         }
+        personaView.mouseArea.onClicked: ui.state="ListarPersonas"
         button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
         button3.onClicked: {
-            model.append({idPersona: 0, nombre: "pepito", direccion: "9 de junio 1389"})
+            model.append({
+                             idPersona: 0,
+                             nombre: "pepito",
+                             direccion: "9 de junio 1389",
+                            telefono: "645545454",
+                         email: "caca@caca.com"})
         }
         listView.delegate: PersonaView {
             id: personaViewDelegate
@@ -117,7 +125,22 @@ ApplicationWindow {
             onRemove: {
                 logicObj.eliminarPersona(idPersona)
             }
+            mouseArea.onClicked: {
+                //ui.personaView.nombre= personaViewDelegate.nombre
+                //anchors.verticalCenter=app.verticalCenter
+                //anchors.horizontalCenter=app.horizontalCenter
+                //scale=4.0
+                selected=index
+                ui.personaView.nombreTxt.text=nombre
+                ui.personaView.direccionTxt.text=direccion
+                ui.personaView.telefonoTxt.text=telefono
+                ui.personaView.emailTxt.text=email
+
+                //ui.personaView = this
+                ui.state="VerPersona"
+            }
         }
+
         model.onRowsRemoved: {
 
         }

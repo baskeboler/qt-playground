@@ -9,6 +9,14 @@ Rectangle {
     signal remove(var idPersona)
 
     property alias removeArea: mouseArea2
+    property alias mouseArea: mouseArea1
+    //property alias nombre: nombre
+   // property alias direccion: direccion
+
+    property alias nombreTxt: text1
+    property alias direccionTxt: text2
+    property alias telefonoTxt: text3
+    property alias emailTxt: text4
     gradient: Gradient {
         GradientStop {
             position: 0.00;
@@ -27,6 +35,7 @@ Rectangle {
 
     Column {
         id: column1
+        anchors.topMargin: 10
         anchors.fill: parent
         spacing: 2
 

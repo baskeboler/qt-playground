@@ -12,7 +12,7 @@ Item {
     property alias button1: button1
     property alias model:model
     property alias crearPersonaForm: createPersonaForm1
-
+    property alias personaView: personaView1
     property alias listView: listView1
     ListModel {
         id: model
@@ -71,6 +71,15 @@ Item {
 
     }
 
+    PersonaView {
+        id: personaView1
+        x: 280
+        y: 190
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        opacity: 0
+    }
+
     states: [
         State {
             name: "CrearPersona"
@@ -109,8 +118,28 @@ Item {
                 visible: true
             }
 
+        },
+        State {
+            name: "VerPersona"
+
+            PropertyChanges {
+                target: personaView1
+                scale: 4
+                opacity: 1
+            }
+
         }
     ]
+    transitions:  Transition {
+            animations:
+                NumberAnimation {
+                target: personaView
+                properties: "opacity,scale"
+                duration: 500
+                easing.type: Easing.InOutQuad
+            }
+
+        }
 
     state: "ListarPersonas"
 
