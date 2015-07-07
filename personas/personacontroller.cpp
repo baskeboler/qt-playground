@@ -4,6 +4,7 @@
 #include <QFile>
 #include <map>
 #include "xmlpersonahandler.h"
+#include <QDebug>
 
 PersonaController * PersonaController::s_instance = nullptr;
 
@@ -21,6 +22,7 @@ PersonaController *PersonaController::getInstance()
 
 Persona *PersonaController::find(long id)
 {
+    qDebug() << "inside find()";
     Persona * r = nullptr;
     if (m_personas.contains(id))
         r = this->m_personas.value(id);
@@ -29,12 +31,13 @@ Persona *PersonaController::find(long id)
 
 bool PersonaController::exists(long id)
 {
+    qDebug() << "inside exists()";
     return m_personas.contains(id);
 }
 
 void PersonaController::add(Persona *p)
 {
-
+    qDebug() << "inside add()";
     if (p->id() == -1) {
         long nextId = Persona::getNextId();
         while(exists(nextId )) {
@@ -48,6 +51,7 @@ void PersonaController::add(Persona *p)
 
 void PersonaController::save(const QString &filePath)
 {
+    qDebug() << "inside save()";
     QFile f(filePath);
     f.open(QFile::WriteOnly);
     QXmlStreamWriter w(&f);
@@ -65,6 +69,7 @@ void PersonaController::save(const QString &filePath)
 
 void PersonaController::load(const QString &filePath)
 {
+    qDebug() << "inside load()";
     QFile f(filePath);
     f.open(QFile::ReadOnly);
     QXmlSimpleReader reader;
@@ -80,6 +85,7 @@ void PersonaController::load(const QString &filePath)
 
 void PersonaController::remove(long id)
 {
+    qDebug() << "inside remove()";
     Persona *p = find(id);
     if (p != nullptr) {
         m_personas.remove(id);
@@ -90,6 +96,7 @@ void PersonaController::remove(long id)
 
 void PersonaController::removeAll()
 {
+    qDebug() << "inside removeAll()";
     for (int i = 0; i < m_personas.size(); i++) {
         Persona *p = m_personas.values().at(i);
         emit personaDeleted(p->id());
@@ -100,6 +107,7 @@ void PersonaController::removeAll()
 
 QList<Persona *> PersonaController::filter(std::function<bool (Persona *)> func)
 {
+    qDebug() << "inside filter()";
     QList<Persona *> ret, all = m_personas.values();
     for (int i=0; i < all.size(); i++) {
         Persona *p = all.at(i);

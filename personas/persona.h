@@ -17,7 +17,10 @@ class PERSONASSHARED_EXPORT Persona: public QObject
 public:
     Persona(QObject *parent=0);
     Persona(const Persona& p);
-    Persona(long id, QString &nombre, QString &direccion, QString &telefono, QString &email);
+    Persona(long id, const QString &nombre, const QString &direccion,
+            const QString &telefono, const QString &email);
+    Persona(const QString &nombre, const QString &direccion,
+            const QString &telefono, const QString &email);;
     virtual ~Persona();
     QString direccion() const;
     QString telefono() const;

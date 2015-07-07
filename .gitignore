@@ -13,3 +13,6 @@ personas/moc_*.*
 personas/*.o
 personastest/tst_personastesttest.moc
 personastest/tst_personastesttest.o
+persona-admin-qtquick/*.o
+persona-admin-qtquick/moc_*.cpp
+persona-admin-qtquick/qrc_qml.cpp

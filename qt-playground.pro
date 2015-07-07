@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
-SUBDIRS += personas-core personas-core-test personas-admin-gui
+SUBDIRS += personas-core personas-core-test personas-admin-gui \
+    persona-admin-qtquick
 DESTDIR = ../bin
 personas-core.subdir=personas
 personas-core-test.subdir=personastest

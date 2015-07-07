@@ -14,7 +14,7 @@ Persona::Persona(const Persona &p):
 
 }
 
-Persona::Persona(long id, QString &nombre, QString &direccion, QString &telefono, QString &email)
+Persona::Persona(long id, const QString &nombre, const QString &direccion, const QString &telefono, const QString &email)
     :
       QObject(),
       m_id(id),
@@ -22,6 +22,13 @@ Persona::Persona(long id, QString &nombre, QString &direccion, QString &telefono
       m_direccion(direccion),
       m_telefono(telefono),
       m_email(email)
+{
+
+}
+
+Persona::Persona(const QString &nombre, const QString &direccion, const QString &telefono, const QString &email)
+    :
+      Persona(-1, nombre, direccion, telefono, email)
 {
 
 }
